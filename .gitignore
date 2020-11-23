@@ -1,0 +1,6 @@
+#nodejs stuff
+node_modules
+package-lock.json
+
+#vim stuff
+*.swp
