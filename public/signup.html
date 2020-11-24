@@ -41,19 +41,26 @@
 
 <!-- form validation -->
 <script>
+
+	// method to validate the form
 	function validateForm()
 	{
+		// store the form as a constant
 		const form = document.forms["signupForm"];
 
+		// loop through each value of the form constant
 		for (var i = 0; i < form.length; i++)
 		{
+			// if the field at the loop index doesn't have a value
 			if (!form[i].value)
 			{
+				// alert the user and return false
 				alert("Please enter a valid " + form[i].placeholder + "!");
 				return false;
 			}
 		}
 	}
+
 </script>
 
 </body>
