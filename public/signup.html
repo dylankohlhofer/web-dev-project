@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+	<style>
+
+		/* this css is garbage, replace all of this */
+		form
+		{
+			width: 300px;
+		}
+
+		input
+		{
+			margin-top: 6px;
+		}	
+
+	</style>
+</head>
+<body>
+
+<!-- form title -->
+<p>Signup form:</p>
+
+<!-- signup form -->
+<form name="signupForm" onsubmit="return validateForm()" action="http://127.0.0.1:3000/getstring" method="POST">
+	<input type="text" placeholder="Forename" name="Forename"></input>
+	<input type="text" placeholder="Surname" name="Surname"></input>
+	<input type="email" placeholder="Email Address" name="Email"></input>
+	<input type="tel" placeholder="Phone Number" name="Phone"></input>
+	<input type="text" placeholder="House Number" name="HouseNumber"></input>
+	<input type="text" placeholder="Postcode" name="Postcode"></input>
+	<input type="text" placeholder="Username" name="Username"></input>
+	<input type="password" placeholder="Password" name="Password"></input>
+	<input type="text" placeholder="Age" name="Age"></input>
+	<input type="text" placeholder="Gender" name="Gender"></input>
+	<input type="text" placeholder="Ethnicity" name="Ethnicity"></input>
+	<input type="text" placeholder="Comments" name="Comments"></input>
+	<input type="text" placeholder="Test Slot" name="TestSlot"></input>
+	<input type="submit" value="submit">
+</form>
+
+<!-- form validation -->
+<script>
+	function validateForm()
+	{
+		const form = document.forms["signupForm"];
+
+		for (var i = 0; i < form.length; i++)
+		{
+			if (!form[i].value)
+			{
+				alert("Please enter a valid " + form[i].placeholder + "!");
+				return false;
+			}
+		}
+	}
+</script>
+
+</body>
+</html>
