@@ -1,0 +1,31 @@
+.infoHeading{
+	font-size: 20px;
+}
+
+/*Navigation code*/
+nav{
+	text-align: center;
+	font-weight: bold;
+}
+
+nav a{
+	text-decoration: none;
+}
+
+nav ul{
+	margin: 0;
+	padding: 0;
+}
+
+nav ul li{
+	display: inline-block;
+	list-style-type: none;
+}
+
+nav > ul > li > a{
+	display: block;
+	line-height: 56px;
+	padding: 0px 24px;
+	text-decoration: none;
+}
+/*Navigation code*/
