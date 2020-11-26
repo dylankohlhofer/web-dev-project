@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en">  
 	<head>   
-		<title>Norwich Testing Initiative: Index</title>  
+		<title>Norwich Testing Initiative: Sign Up</title>  
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="css-styles/MainStyle.css" rel="stylesheet">
 		<script src="java-script/MainJavaScript.js" defer></script>
@@ -15,11 +15,11 @@
 			{
 				margin-top: 6px;
 			}	
-	</style>
+		</style>
 	</head>  
 	<body>   
 		<header>    
-			<h1>Norwich Testing Initiative: Homepage</h1>   		
+			<h1>Norwich Testing Initiative: Sign Up</h1>   		
 		</header>   
 			<nav>
 				<ul>
@@ -31,7 +31,8 @@
 			</nav> 	 
 		<main>  
 			<!-- form title -->
-			<p>Signup form:</p>
+			<h2>Sign up for covid testing</h2>
+			<p>Something something something sign up here lol</p>
 
 			<!-- signup form -->
 			<form name="signupForm" onsubmit="return validateForm()" action="http://127.0.0.1:3000/getstring" method="POST">
@@ -48,16 +49,18 @@
 				<input type="text" placeholder="Ethnicity" name="Ethnicity"></input>
 				<input type="text" placeholder="Comments" name="Comments"></input>
 				<input type="text" placeholder="Test Slot" name="TestSlot"></input>
-				<input type="submit" value="submit">
+				<input type="submit" value="Submit">
 			</form>
 
 			<!-- form validation -->
 			<script>
+
 				// method to validate the form
 				function validateForm()
 				{
 					// store the form as a constant
 					const form = document.forms["signupForm"];
+
 					// loop through each value of the form constant
 					for (var i = 0; i < form.length; i++)
 					{
