@@ -1,8 +1,9 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var urlencodedParser = bodyParser.urlencoded({extended: false});
-var fs = require("fs");
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const urlencodedParser = bodyParser.urlencoded({extended: false});
+const fs = require("fs");
+const results = require("./results.json");
 
 app.use(express.static("public"));
 
@@ -34,20 +35,26 @@ app.post("/getstring", urlencodedParser, function(req, res)
 	// output the response object to the console
 	console.log(response);
 
-	fs.appendFile("results.json", JSON.stringify(response), function (err)
+	// update the json file
+	results.data.push(response);
+
+	const output = "{\"data\": " + JSON.stringify(results.data) + "}";
+	fs.writeFile("results.json", output, "utf8", function (err)
 	{
+		// output an error if file write fails
 		if (err) throw err;
-		console.log('The "data to append" was appended to file!');
+		
+		// output succesful
+		console.log("The data to append was appended to file!");
 	});
 
-	// tell the user if the form signup was succesful or unsuccesful
-	//res.status(404).send("signup failed (404)");
-	//res.status(500).send("signup failed (500)");
+	// tell the user the form signup was succesful
 	res.end("signup succesful!");
 })
 
 app.listen(3000, function()
 {
 	console.log("server is online and listening!");
+	console.log(results.data);
 });
 
