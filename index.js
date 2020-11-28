@@ -1,20 +1,28 @@
+// required node modules
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({extended: false});
 const fs = require("fs");
+const bcrypt = require("bcrypt");
 
+// global variables
+const file = "results.json";
+const salt = 10;
+
+// setup file reciving
 app.use(express.static("public"));
 
 app.get("/index.html", function(req, res)
 {
-	res.sendFile(_dirname + "/" + "index.html");
-})
+	res.sendFile(_dirname + "/index.html");
+});
 
+// on form submit
 app.post("/getstring", urlencodedParser, function(req, res)
 {
 	// generate response object
-	response = 
+	var response = 
 	{
 		Forename: req.body.Forename,
 		Surname: req.body.Surname,
@@ -23,7 +31,7 @@ app.post("/getstring", urlencodedParser, function(req, res)
 		HouseNumber: req.body.HouseNumber,
 		Postcode: req.body.Postcode,
 		Username: req.body.Username,
-		Password: req.body.Password,
+		Password: bcrypt.hashSync(req.body.Password, salt),
 		Age: req.body.Age,
 		Gender: req.body.Gender,
 		Ethnicity: req.body.Ethnicity,
@@ -31,16 +39,15 @@ app.post("/getstring", urlencodedParser, function(req, res)
 		TestSlot: req.body.TestSlot
 	};
 
-	// output the response object to the console
-	console.log(response);
+	console.log(response.Password);
 
-	// update the json file
-	var results = JSON.parse(fs.readFileSync("results.json"));
-	console.log(results);
+	// generate the updated json file
+	const results = JSON.parse(fs.readFileSync(file));
 	results.data.push(response);
-
 	const output = "{\"data\": " + JSON.stringify(results.data) + "}";
-	fs.writeFile("results.json", output, "utf8", function (err)
+
+	// write the updated json file
+	fs.writeFile(file, output, "utf8", function (err)
 	{
 		// output an error if file write fails
 		if (err) throw err;
@@ -50,22 +57,29 @@ app.post("/getstring", urlencodedParser, function(req, res)
 	});
 
 	// tell the user the form signup was succesful
-	res.end("signup succesful!");
+	res.end("Signup succesful!");
 })
 
+// begin listening on startup
 app.listen(3000, function()
 {
-	console.log("server is online and listening!");
+	// output that the server is running
+	console.log("Server is online and listening!");
 
-	fs.access("results.json", fs.F_OK, function (err)
+	// attempt to read json file
+	fs.access(file, fs.F_OK, function (err)
 	{
+		// create json file if doesn't exist
 		if (err)
 		{
 			const output = "{\"data\": []}";
 			fs.writeFile("results.json", output, "utf8", function (err)
 			{
+				// output an error if file write fails
 				if (err) throw err;
-				console.log("file created");
+
+				// output that new json was created
+				console.log(file + " created!");
 			});
 		}
 	});
