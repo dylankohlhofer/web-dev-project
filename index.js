@@ -33,18 +33,16 @@ app.post("/getstring", urlencodedParser, function(req, res)
 		Username: req.body.Username,
 		Password: bcrypt.hashSync(req.body.Password, salt),
 		Age: req.body.Age,
+		Comment: req.body.Comment,
 		Gender: req.body.Gender,
 		Ethnicity: req.body.Ethnicity,
-		Comments: req.body.Comments,
 		TestSlot: req.body.TestSlot
 	};
-
-	console.log(response.Password);
 
 	// generate the updated json file
 	const results = JSON.parse(fs.readFileSync(file));
 	results.data.push(response);
-	const output = "{\"data\": " + JSON.stringify(results.data) + "}";
+	const output = "{\"data\":" + JSON.stringify(results.data) + "}";
 
 	// write the updated json file
 	fs.writeFile(file, output, "utf8", function (err)
@@ -72,7 +70,7 @@ app.listen(3000, function()
 		// create json file if doesn't exist
 		if (err)
 		{
-			const output = "{\"data\": []}";
+			const output = "{\"data\":[]}";
 			fs.writeFile("results.json", output, "utf8", function (err)
 			{
 				// output an error if file write fails

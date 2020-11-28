@@ -11,8 +11,9 @@
 			{
 				width: 300px;
 			}
-			input
+			input, select
 			{
+				width: 240px;
 				margin-top: 6px;
 			}	
 		</style>
@@ -36,6 +37,8 @@
 
 			<!-- signup form -->
 			<form name="signupForm" onsubmit="return validateForm()" action="http://127.0.0.1:3000/getstring" method="POST">
+				
+				<!-- text entry boxes -->
 				<input type="text" placeholder="Forename" name="Forename"></input>
 				<input type="text" placeholder="Surname" name="Surname"></input>
 				<input type="email" placeholder="Email Address" name="Email"></input>
@@ -44,11 +47,32 @@
 				<input type="text" placeholder="Postcode" name="Postcode"></input>
 				<input type="text" placeholder="Username" name="Username"></input>
 				<input type="password" placeholder="Password" name="Password"></input>
-				<input type="text" placeholder="Age" name="Age"></input>
-				<input type="text" placeholder="Gender" name="Gender"></input>
-				<input type="text" placeholder="Ethnicity" name="Ethnicity"></input>
-				<input type="text" placeholder="Comments" name="Comments"></input>
-				<input type="text" placeholder="Test Slot" name="TestSlot"></input>
+				<input type="number" placeholder="Age" name="Age"></input>
+				<input type="text" placeholder="Comment" name="Comment"></input>
+
+				<!-- dropdown menus -->
+				<select id="Gender" name="Gender">
+					<option disabled selected value>Gender</option>
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+					<option value="Other">Other<option>
+				</select>
+
+				<select id="Ethnicity" name="Ethnicity">
+					<option disabled selected value>Ethnicity</option>
+					<option value="Asian">Asian</option>
+					<option value="Black/African">Black/African</option>
+					<option value="Caucasian">Caucasian</option>
+					<option value="Hispanic/Latino">Hispanic/Latino</option>
+					<option value="Other">Other</option>
+				</select>
+
+				<select id="Test Slot" name="TestSlot">
+					<option disabled selected value>Test Slot</option>
+					<option value="10:00">10:00</option>
+					<option value="10:30">10:30</option>
+					<option value="11:00">11:00</option>
+  				</select>
 				<input type="submit" value="Submit">
 			</form>
 
@@ -67,8 +91,8 @@
 						// if the field at the loop index doesn't have a value
 						if (!form[i].value)
 						{
-							// alert the user and return false
-							alert("Please enter a valid " + form[i].placeholder + "!");
+							const output = (form[i].placeholder == undefined) ? form[i].id : form[i].placeholder;
+							alert("Please enter a valid " + output + "!");
 							return false;
 						}
 					}
