@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({extended: false});
 const fs = require("fs");
-const results = require("./results.json");
 
 app.use(express.static("public"));
 
@@ -36,6 +35,8 @@ app.post("/getstring", urlencodedParser, function(req, res)
 	console.log(response);
 
 	// update the json file
+	var results = JSON.parse(fs.readFileSync("results.json"));
+	console.log(results);
 	results.data.push(response);
 
 	const output = "{\"data\": " + JSON.stringify(results.data) + "}";
@@ -55,6 +56,18 @@ app.post("/getstring", urlencodedParser, function(req, res)
 app.listen(3000, function()
 {
 	console.log("server is online and listening!");
-	console.log(results.data);
+
+	fs.access("results.json", fs.F_OK, function (err)
+	{
+		if (err)
+		{
+			const output = "{\"data\": []}";
+			fs.writeFile("results.json", output, "utf8", function (err)
+			{
+				if (err) throw err;
+				console.log("file created");
+			});
+		}
+	});
 });
 

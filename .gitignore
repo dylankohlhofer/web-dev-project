@@ -4,3 +4,6 @@ package-lock.json
 
 #vim stuff
 *.swp
+
+#project stuff
+results.json
