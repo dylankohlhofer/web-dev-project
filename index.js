@@ -32,7 +32,7 @@ app.post("/getstring", urlencodedParser, function(req, res)
 		Postcode: req.body.Postcode,
 		Username: req.body.Username,
 		Password: bcrypt.hashSync(req.body.Password, salt),
-		Age: req.body.Age,
+		Birthday: req.body.Birthday,
 		Comment: req.body.Comment,
 		Gender: req.body.Gender,
 		Ethnicity: req.body.Ethnicity,
