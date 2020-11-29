@@ -22,7 +22,7 @@ app.get("/index.html", function(req, res)
 app.post("/getstring", urlencodedParser, function(req, res)
 {
 	// generate response object
-	var response = 
+	const response = 
 	{
 		Forename: req.body.Forename,
 		Surname: req.body.Surname,
@@ -67,11 +67,11 @@ app.listen(3000, function()
 	// attempt to read json file
 	fs.access(file, fs.F_OK, function (err)
 	{
-		// create json file if doesn't exist
+		// if json file doesn't exist
 		if (err)
 		{
-			const output = "{\"data\":[]}";
-			fs.writeFile("results.json", output, "utf8", function (err)
+			// create json file
+			fs.writeFile("results.json", "{\"data\":[]}", "utf8", function (err)
 			{
 				// output an error if file write fails
 				if (err) throw err;
