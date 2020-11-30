@@ -1,0 +1,134 @@
+<!DOCTYPE html> 
+<html lang="en">  
+	<head>   
+		<title>Norwich Testing Initiative: Index</title>  
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="css-styles/MainStyle.css" rel="stylesheet">
+		<script src="javascript/MainJavaScript.js" defer></script>
+	</head>  
+	<body>   
+		<header>    
+			<h1>Norwich Testing Initiative: Sign-up Form</h1>   		
+		</header>   
+			<nav>
+				<ul>
+					<li><a href="index.html">Homepage</a></li>
+					<li><a href="covid.html">COVID-19 Information</a></li>
+					<li><a href="signup.html">Sign-up</a></li>
+					<li><a href="team.html">Team Information</a></li>	
+				</ul>
+			</nav> 	 
+		<main>  
+			<p>Please fill in the details below</p>
+
+			<div id="sign-up form">
+				<!-- Personal Details Form -->
+				<form id="formPersonalDetails" name="formPersonalDetails" onsubmit="return validateForm()" action="http://127.0.0.1:3000/getstring" method="POST">
+					<fieldset>
+						<legend>Personal Details</legend>
+						<!-- text entry boxes -->
+						<label for="Forename">Forename:</label><br>
+						<input type="text" id="forename" name="Forename" placeholder="Enter your forename..." required="">
+
+						<label for="Surname">Surname:</label><br>
+						<input type="text" id="surname" name="Surname" placeholder="Enter your surname..." required=""></input>
+
+						<label for="Email">Email:</label><br>					
+						<input type="email" id="email" name="Email" placeholder="Enter your email address..." required=""></input>
+
+						<label for="tel">Mobile Phone Number:</label><br>
+						<input type="tel" id="tel" name="Phone" placeholder="Enter your mobile phone number..." required=""></input>
+
+						<label for="Address">Home Address:</label><br>
+						<input type="text" id="address" name="HouseNumber" placeholder="Enter your home address..." required=""></input>
+
+						<label for="Postcode">Postcode:</label><br>
+						<input type="text" id="postcode" name="Postcode" placeholder="Enter your postcode..." required=""></input>
+
+						<!-- date -->
+						<label for="birthday">Birthday:</label><br>
+						<input type="date" id="birthday" name="Birthday" required=""></input>
+						
+						<!-- dropdown menus -->
+						<label for="gender">Gender:</label><br>
+						<select id="Gender" name="Gender">
+							<option disabled selected value>Select your gender...</option>
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
+							<option value="Other">Other</option>
+						</select>
+
+						<label for="ethnicity">Ethnicity:</label><br>
+						<select id="Ethnicity" name="Ethnicity">
+							<option disabled selected value>Select your ethnicity...</option>
+							<option value="Asian">Asian</option>
+							<option value="Black/African">Black/African</option>
+							<option value="Caucasian">Caucasian</option>
+							<option value="Hispanic/Latino">Hispanic/Latino</option>
+							<option value="Other">Other</option>
+						</select>
+					</fieldset>
+				</form>
+				
+				<!-- Account Details Form -->
+				<form id="formAccountDetails" name="formAccountDetails" onsubmit="return validateForm()" action="http://127.0.0.1:3000/getstring" method="POST">
+					<fieldset>
+						<legend>Account Details</legend>
+						<label for="Username">Username:</label><br>
+						<input type="text" id="username" name="Username" placeholder="Create a username for your new account" required=""></input>
+
+						<label for="Password">Password:</label><br>
+						<input type="password" id="password" name="Password" placeholder="Create a password for your new account" required=""></input>
+
+						<label for="ConfirmPassword">Confirm Password:</label><br>
+						<input type="password" id="confirmPassword" name="ConfirmPassword" placeholder="Confirm your new password" required=""></input>
+
+						<label for="testslot">Testslot:</label><br>
+						<select id="Test Slot" name="TestSlot">
+							<option disabled selected value>Select a Test Slot time...</option>
+							<option value="10:00">10:00</option>
+							<option value="10:30">10:30</option>
+							<option value="11:00">11:00</option>
+		  				</select>
+
+		  				<!-- textarea -->
+						<label for="comments">Comments:</label><br>
+						<textarea id="comments" name="Comment" rows="5" cols="35" placeholder="Do you have any additional comments..." required=""></textarea>
+					</fieldset>
+				</form>
+
+				<input type="submit" value="submit" onclick="submitForms()"/>
+			</div>
+			
+			<!-- form validation -->
+			<script>
+				submitForms = function(){
+    				document.forms["formPersonalDetails"].submit();
+    				document.forms["formAccountDetails"].submit();
+				}
+				/*
+				// method to validate the form
+				function validateForm()
+				{
+					// store the form as a constant
+					const form = document.forms["signupForm"];
+					// loop through each value of the form constant
+					for (var i = 0; i < form.length; i++)
+					{
+						// if the field at the loop index doesn't have a value
+						if (!form[i].value)
+						{
+							// alert the user and return false
+							alert("Please enter a valid " + form[i].placeholder + "!");
+							return false;
+						}
+					}
+				}
+				/*
+			</script>
+		</main>   
+		<footer>
+			<img id="NTI_Logo" src="images/NTI.png" alt="Norwich Testing Initiative Logo"/>
+		</footer>
+	</body>  
+</html> 
