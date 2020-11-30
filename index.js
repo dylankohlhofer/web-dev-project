@@ -1,18 +1,20 @@
 // required node modules
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
-const urlencodedParser = bodyParser.urlencoded({extended: false});
 const fs = require("fs");
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
+const readline = require("readline");
 
 // global variables
 const file = "results.json";
+const email = "email.json";
+const app = express();
+const urlencodedParser = bodyParser.urlencoded({extended: false});
 const salt = 10;
 
 // setup file reciving
 app.use(express.static("public"));
-
 app.get("/index.html", function(req, res)
 {
 	res.sendFile(_dirname + "/index.html");
@@ -40,18 +42,40 @@ app.post("/getstring", urlencodedParser, function(req, res)
 	};
 
 	// generate the updated json file
-	const results = JSON.parse(fs.readFileSync(file));
+	var results = JSON.parse(fs.readFileSync(file));
 	results.data.push(response);
-	const output = "{\"data\":" + JSON.stringify(results.data) + "}";
 
 	// write the updated json file
-	fs.writeFile(file, output, "utf8", function (err)
+	fs.writeFile(file, JSON.stringify({data: results.data}), "utf8", function (err)
 	{
 		// output an error if file write fails
 		if (err) throw err;
 		
 		// output succesful
 		console.log("The data to append was appended to file!");
+	});
+
+	// setup nodemailer
+	const mailConfig = JSON.parse(fs.readFileSync(email)); 
+	const transporter = nodemailer.createTransport(mailConfig);
+
+	// create conformation email
+	const outputMail =
+	{
+		from: mailConfig.auth.user,
+		to: req.body.Email,
+		subject: "Signup success!",
+		text: "Hey, " + req.body.Forename + " you did it!"
+	}
+
+	// send conformation email
+	transporter.sendMail(outputMail, function(err, info)
+	{
+		// output error if send fails
+		if (err) throw err;
+
+		// email succesful
+		console.log("Conformation email sent!");
 	});
 
 	// tell the user the form signup was succesful
@@ -64,14 +88,14 @@ app.listen(3000, function()
 	// output that the server is running
 	console.log("Server is online and listening!");
 
-	// attempt to read json file
+	// attempt to read user info json file
 	fs.access(file, fs.F_OK, function (err)
 	{
 		// if json file doesn't exist
 		if (err)
 		{
 			// create json file
-			fs.writeFile("results.json", "{\"data\":[]}", "utf8", function (err)
+			fs.writeFile(file, JSON.stringify({data:[]}), "utf8", function (err)
 			{
 				// output an error if file write fails
 				if (err) throw err;
@@ -81,5 +105,52 @@ app.listen(3000, function()
 			});
 		}
 	});
+
+	// attempt to read email setup json file
+	fs.access(email, fs.F_OK, function (err)
+	{
+		// if json file doesn't exist
+		if (err)
+		{
+			mailLogin();
+		}
+	});
 });
+
+function mailLogin()
+{
+	// create email config object
+	var mailConfig =
+	{
+		service: "gmail",
+		auth: {user: undefined, pass: undefined}
+	};
+
+	// create line reader
+	const emailInput = readline.createInterface({input: process.stdin, output: process.stdout});
+
+	// ask for gmail address and password
+	emailInput.question("Enter gmail address: ", function (user)
+	{
+		emailInput.question("Enter gmail app password: ", function (pass)
+		{
+			// write gmail address and password
+			mailConfig.auth.user = user;
+			mailConfig.auth.pass = pass;
+
+			// close line reader
+			emailInput.close();
+
+			// create json file
+			fs.writeFile(email, JSON.stringify(mailConfig), "utf8", function (err)
+			{
+				// output an error if file write fails
+				if (err) throw err;
+
+				// output that new json was created
+				console.log(email + " created!");
+			});
+		});
+	});
+}
 
