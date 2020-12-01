@@ -78,13 +78,14 @@ function mailLogin()
 	});
 }
 
+// send the confirmation email to the user
 function sendEmail(req)
 {
     // setup nodemailer
     const mailConfig = JSON.parse(fs.readFileSync(email));
     const transporter = nodemailer.createTransport(mailConfig);
 
-    // create conformation email
+    // create confirmation email
     const outputMail =
     {
         from: mailConfig.auth.user,
@@ -93,17 +94,18 @@ function sendEmail(req)
         text: "Hey, " + req.body.Forename + " you did it!"
     }
 
-    // send conformation email
+    // send confirmation email
     transporter.sendMail(outputMail, function(err, info)
     {
         // output error if send fails
         if (err) throw err;
 
         // email succesful
-        console.log("Conformation email sent!");
+        console.log("Confirmation email sent!");
     });
 }
 
+// write the users data to a json file
 function writeFile(req)
 {
     // generate response object
@@ -139,20 +141,24 @@ function writeFile(req)
     });
 }
 
+// check to see if email.json exists
 function checkEmail()
 {
-
 	// attempt to read email setup json file
 	fs.access(email, fs.F_OK, function (err)
 	{
 		// if json file doesn't exist
-		if (err) mailLogin();
+		if (err)
+		{
+			console.log("No gmail account found, please sign in!\n");
+			mailLogin();
+		}
 	});
 }
 
+// check to see if results.json exists
 function checkResults()
 {
-
 	// attempt to read user info json file
 	fs.access(file, fs.F_OK, function (err)
 	{
@@ -167,9 +173,10 @@ function checkResults()
 
 				// output that new json was created
 				console.log(file + " created!");
-			});
 
-			checkEmail();
+				// only check email.json once results.json created
+				checkEmail();
+			});
 		}
 		
 		else checkEmail();
