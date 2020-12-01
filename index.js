@@ -23,60 +23,9 @@ app.get("/index.html", function(req, res)
 // on form submit
 app.post("/getstring", urlencodedParser, function(req, res)
 {
-	// generate response object
-	const response = 
-	{
-		Forename: req.body.Forename,
-		Surname: req.body.Surname,
-		Email: req.body.Email,
-		Phone: req.body.Phone,
-		HouseNumber: req.body.HouseNumber,
-		Postcode: req.body.Postcode,
-		Username: req.body.Username,
-		Password: bcrypt.hashSync(req.body.Password, salt),
-		Birthday: req.body.Birthday,
-		Comment: req.body.Comment,
-		Gender: req.body.Gender,
-		Ethnicity: req.body.Ethnicity,
-		TestSlot: req.body.TestSlot
-	};
-
-	// generate the updated json file
-	var results = JSON.parse(fs.readFileSync(file));
-	results.data.push(response);
-
-	// write the updated json file
-	fs.writeFile(file, JSON.stringify({data: results.data}), "utf8", function (err)
-	{
-		// output an error if file write fails
-		if (err) throw err;
-		
-		// output succesful
-		console.log("The data to append was appended to file!");
-	});
-
-	// setup nodemailer
-	const mailConfig = JSON.parse(fs.readFileSync(email)); 
-	const transporter = nodemailer.createTransport(mailConfig);
-
-	// create conformation email
-	const outputMail =
-	{
-		from: mailConfig.auth.user,
-		to: req.body.Email,
-		subject: "Signup success!",
-		text: "Hey, " + req.body.Forename + " you did it!"
-	}
-
-	// send conformation email
-	transporter.sendMail(outputMail, function(err, info)
-	{
-		// output error if send fails
-		if (err) throw err;
-
-		// email succesful
-		console.log("Conformation email sent!");
-	});
+	// write to json file and send conformation email
+	writeFile(req);
+	sendEmail(req);
 
 	// tell the user the form signup was succesful
 	res.end("Signup succesful!");
@@ -102,19 +51,17 @@ app.listen(3000, function()
 
 				// output that new json was created
 				console.log(file + " created!");
+
+				// attempt to read email setup json file
+				fs.access(email, fs.F_OK, function (err)
+				{
+					// if json file doesn't exist
+					if (err) mailLogin();
+				});
 			});
 		}
 	});
 
-	// attempt to read email setup json file
-	fs.access(email, fs.F_OK, function (err)
-	{
-		// if json file doesn't exist
-		if (err)
-		{
-			mailLogin();
-		}
-	});
 });
 
 function mailLogin()
@@ -154,3 +101,63 @@ function mailLogin()
 	});
 }
 
+function sendEmail(req)
+{
+    // setup nodemailer
+    const mailConfig = JSON.parse(fs.readFileSync(email));
+    const transporter = nodemailer.createTransport(mailConfig);
+
+    // create conformation email
+    const outputMail =
+    {
+        from: mailConfig.auth.user,
+        to: req.body.Email,
+        subject: "Signup success!",
+        text: "Hey, " + req.body.Forename + " you did it!"
+    }
+
+    // send conformation email
+    transporter.sendMail(outputMail, function(err, info)
+    {
+        // output error if send fails
+        if (err) throw err;
+
+        // email succesful
+        console.log("Conformation email sent!");
+    });
+}
+
+function writeFile(req)
+{
+    // generate response object
+    const response =
+    {
+        Forename: req.body.Forename,
+        Surname: req.body.Surname,
+        Email: req.body.Email,
+        Phone: req.body.Phone,
+        HouseNumber: req.body.HouseNumber,
+        Postcode: req.body.Postcode,
+        Username: req.body.Username,
+        Password: bcrypt.hashSync(req.body.Password, salt),
+        Birthday: req.body.Birthday,
+        Comment: req.body.Comment,
+        Gender: req.body.Gender,
+        Ethnicity: req.body.Ethnicity,
+        TestSlot: req.body.TestSlot
+    };
+
+    // generate the updated json file
+    var results = JSON.parse(fs.readFileSync(file));
+    results.data.push(response);
+
+    // write the updated json file
+    fs.writeFile(file, JSON.stringify({data: results.data}), "utf8", function (err)
+    {
+        // output an error if file write fails
+        if (err) throw err;
+
+        // output succesful
+        console.log("The data to append was appended to file!");
+    });
+}
