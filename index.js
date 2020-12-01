@@ -37,31 +37,8 @@ app.listen(3000, function()
 	// output that the server is running
 	console.log("Server is online and listening!");
 
-	// attempt to read user info json file
-	fs.access(file, fs.F_OK, function (err)
-	{
-		// if json file doesn't exist
-		if (err)
-		{
-			// create json file
-			fs.writeFile(file, JSON.stringify({data:[]}), "utf8", function (err)
-			{
-				// output an error if file write fails
-				if (err) throw err;
-
-				// output that new json was created
-				console.log(file + " created!");
-
-				// attempt to read email setup json file
-				fs.access(email, fs.F_OK, function (err)
-				{
-					// if json file doesn't exist
-					if (err) mailLogin();
-				});
-			});
-		}
-	});
-
+	// check to see if results.json and email.json exist
+	checkResults();
 });
 
 function mailLogin()
@@ -160,4 +137,41 @@ function writeFile(req)
         // output succesful
         console.log("The data to append was appended to file!");
     });
+}
+
+function checkEmail()
+{
+
+	// attempt to read email setup json file
+	fs.access(email, fs.F_OK, function (err)
+	{
+		// if json file doesn't exist
+		if (err) mailLogin();
+	});
+}
+
+function checkResults()
+{
+
+	// attempt to read user info json file
+	fs.access(file, fs.F_OK, function (err)
+	{
+		// if json file doesn't exist
+		if (err)
+		{
+			// create json file
+			fs.writeFile(file, JSON.stringify({data:[]}), "utf8", function (err)
+			{
+				// output an error if file write fails
+				if (err) throw err;
+
+				// output that new json was created
+				console.log(file + " created!");
+			});
+
+			checkEmail();
+		}
+		
+		else checkEmail();
+	});
 }
