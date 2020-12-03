@@ -1,24 +1,28 @@
-<!DOCTYPE html> 
-<html lang="en">  
-	<head>   
-		<title>Norwich Testing Initiative: Index</title>  
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Norwich Testing Initiative: Index</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="css-styles/MainStyle.css" rel="stylesheet">
 		<script src="javascript/MainJavaScript.js" defer></script>
-	</head>  
-	<body>   
-		<header>    
-			<h1>Norwich Testing Initiative: Sign-up Form</h1>   		
-		</header>   
+	</head>
+	<body>
+		<header>
+  		<div class="tin">
+				<div class="branding">
+					<h1><span class="highlight">Norwich</span> Testing Initiative</h1>
+				</div>
 			<nav>
 				<ul>
 					<li><a href="index.html">Homepage</a></li>
 					<li><a href="covid.html">COVID-19 Information</a></li>
-					<li><a href="signup.html">Sign-up</a></li>
-					<li><a href="team.html">Team Information</a></li>	
+					<li class="current"><a href="signup.html">Sign-up</a></li>
+					<li><a href="team.html">Team Information</a></li>
 				</ul>
-			</nav> 	 
-		<main>  
+			</nav>
+		</div>
+		</header>
+		<main>
 			<p>Please fill in the details below</p>
 
 			<div id="sign-up form">
@@ -33,7 +37,7 @@
 						<label for="Surname">Surname:</label><br>
 						<input type="text" id="surname" name="Surname" placeholder="Enter your surname..." required=""></input>
 
-						<label for="Email">Email:</label><br>					
+						<label for="Email">Email:</label><br>
 						<input type="email" id="email" name="Email" placeholder="Enter your email address..." required=""></input>
 
 						<label for="tel">Mobile Phone Number:</label><br>
@@ -57,7 +61,7 @@
 						<!-- date -->
 						<label for="birthday">Birthday:</label><br>
 						<input type="date" id="birthday" name="Birthday" required=""></input>
-						
+
 						<!-- dropdown menus -->
 						<label for="gender">Gender:</label><br>
 						<select id="Gender" name="Gender">
@@ -91,9 +95,9 @@
 
 						<input type="submit" value="submit">
 					</fieldset>
-				</form>				
+				</form>
 			</div>
-			
+
 			<!-- form validation -->
 			<script>
 				/*
@@ -116,9 +120,9 @@
 				}
 				/*
 			</script>
-		</main>   
+		</main>
 		<footer>
 			<img id="NTI_Logo" src="images/NTI.png" alt="Norwich Testing Initiative Logo"/>
 		</footer>
-	</body>  
-</html> 
+	</body>
+</html>
