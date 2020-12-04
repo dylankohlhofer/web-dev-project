@@ -50,10 +50,7 @@ header a: hover{
 	border-width: 1px;
 }
 
-#covidVid{
-	width: 560px;
-	height: 315px;
-	border: 1px solid black;
+
 }
 
 
@@ -176,7 +173,9 @@ fieldset{
 @media(max-width: 768px)  {
 	header #branding,
 	header nav,
-	header nav li,{
+	header nav li,
+  ,
+	;{
 		float: none;
 		text-align: center;
 		width: 100%;
@@ -200,4 +199,43 @@ fieldset{
 	text-align: center;
 	width:30%;
 	padding:10px;
+}
+.info {
+	width:80%;
+	margin:auto;
+	overflow:hidden;
+	text-align:center;
+}
+.infoHeader{
+	text-align: center;
+}
+
+.wrapper{
+margin: 0 auto;
+width: 80%;
+padding-left: 0px;
+
+}
+
+.videocontainer{
+  position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 25px;
+	height: 0px;
+}
+.videocontainer iframe {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+
+#isolation{
+	display: inline-block;
+	width:30%;
+	height:30%;
 }
