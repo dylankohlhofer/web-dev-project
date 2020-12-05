@@ -1,32 +1,45 @@
-h2{
-	font-size: 20px;
-}
 
-/*Navigation code*/
-nav{
-	text-align: center;
+header{
+	background:#35424a;
+	color:#ffffff;
+	padding-top:30px;
+	min-height: 70px;
+	border-bottom:#b19cd9 6px solid;
+	padding-bottom:20px;
+}
+header a{
+	color:#ffffff;
+	text-decoration:none;
+	text-transform: uppercase;
+	font-size:16px;
+}
+header li{
+	float:left;
+	display:inline;
+	padding: 0 20px 0 20px;
+}
+header nav{
+	float: right;
+	margin-top: 10px;
+}
+header #branding{
+		float:left;
+		font-size:35px;
+		padding-top:10px;
+	}
+header #branding h1{
+	margin:0;
+}
+header .highlight, header .current a{
+	color:#b19cd9;
+	font-weight:bold;
+}
+header a: hover{
+	color:#cccccc;
 	font-weight: bold;
 }
+/*Navigation code*/
 
-nav a{
-	text-decoration: none;
-}
-
-nav ul{
-	margin: 0;
-	padding: 0;
-}
-
-nav ul li{
-	display: inline-block;
-	list-style-type: none;
-}
-
-nav > ul > li > a{
-	display: block;
-	line-height: 56px;
-	padding: 0px 24px;
-	text-decoration: none;
 }
 /*Navigation code*/
 
@@ -37,36 +50,39 @@ nav > ul > li > a{
 	border-width: 1px;
 }
 
-#covidVid{
-	width: 560px;
-	height: 315px;
-	border: 1px solid black;
+
 }
 
-h1{
-	text-align: center;
-}
+
 
 #NTI_Logo{
 	border: 1px solid black;
+	width: 188.5px;
+	height:auto;
 }
 
+
 body{
-	background: #ffffff;
+	background: #d9d9d9;
 	color: #000000;
 	font-family: Roboto, sans-serif;
-	margin: 10px;
-	padding: 10px;
+	margin: 0px;
+	padding: 0px;
 }
 
 main{
 	background: #d9d9d9;
-	margin: 10px;
+	margin: 0px;
 	padding: 10px;
+
 }
 
 footer{
-	padding: 10px;
+	padding: 20px;
+	margin-top:20px;
+	color: #ffffff;
+	background-color: #b19cd9;
+	text-align: center;
 }
 
 label{
@@ -127,10 +143,99 @@ fieldset{
 	grid-gap: 16px;
 	text-align: center;
 }
-
+#showcase{
+	min-height: 400px;
+	background:url(../images/showcase.jpg) no-repeat;
+	color: #ffffff;
+	text-align: center;
+}
+#showcase h1{
+	margin-top: 100px;
+	font-size: 100px;
+	margin-bottom: 10px;
+	color: #8b0000;
+	font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;
+}
+#showcase p{
+	font-size: 20px;
+}
 .container img
 {
 	width: 200px;
 	height: 220px;
 	object-fit: cover;
+}
+.tin{
+	width:80%;
+	margin:auto;
+	overflow:hidden;
+}
+@media(max-width: 768px)  {
+	header #branding,
+	header nav,
+	header nav li,
+  ,
+	;{
+		float: none;
+		text-align: center;
+		width: 100%;
+	}
+}
+#initiative h2{
+	text-align:center;
+}
+#initiative p{
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 150px;
+	padding-right: 150px;
+}
+#boxes{
+	margin-top:20px;
+}
+#boxes .box{
+	float: left;
+	text-align: center;
+	width:30%;
+	padding:10px;
+}
+.info {
+	width:80%;
+	margin:auto;
+	overflow:hidden;
+	text-align:center;
+}
+.infoHeader{
+	text-align: center;
+}
+
+.wrapper{
+margin: 0 auto;
+width: 80%;
+padding-left: 0px;
+
+}
+
+.videocontainer{
+  position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 25px;
+	height: 0px;
+}
+.videocontainer iframe {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+
+#isolation{
+	display: inline-block;
+	width:30%;
+	height:30%;
 }
